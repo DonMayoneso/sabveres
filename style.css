@@ -1,0 +1,718 @@
+/* =========================================
+   1. CONFIGURACIÓN GLOBAL Y FUENTES
+   ========================================= */
+@font-face {
+    font-family: 'AdobeMingStd';
+    src: url('fonts/AdobeMingStd-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'MyriadPro';
+    src: url('fonts/MyriadPro-Regular.otf') format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'MyriadPro-Bold';
+    src: url('fonts/MyriadPro-Bold.otf') format('opentype');
+    font-weight: bold;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f8db; /* Color Crema Base */
+    font-family: 'MyriadPro', sans-serif;
+    color: #0f3a46; /* Azul Oscuro Corporativo */
+    overflow-x: hidden;
+}
+
+/* =========================================
+   2. NAVBAR Y HEADER
+   ========================================= */
+.navbar-accent-square {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 27%;
+    height: 110px;
+    background-color: #407778;
+    z-index: 500;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.navbar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    z-index: 1000;
+}
+
+.main-navbar {
+    background-color: #0f3a46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    height: 100px;
+    border-bottom-right-radius: 50px;
+}
+
+.menu-wrapper {
+    width: 110px;
+    display: flex;
+    justify-content: center;
+}
+
+.hamburguer-menu {
+    cursor: pointer;
+    z-index: 1001;
+    padding: 10px;
+}
+
+.line {
+    width: 40px;
+    height: 5px;
+    background-color: #407778;
+    margin: 6px 0;
+    border-radius: 2px;
+}
+
+.nav-logo {
+    height: 65px;
+    margin-right: 40px;
+}
+
+/* Menú Desplegable Lateral */
+.dropdown-side-menu {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 110px;
+    background-color: #0f3a46;
+    list-style: none;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    border-bottom-right-radius: 50px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.5s ease-in-out;
+}
+
+.dropdown-side-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-side-menu img {
+    width: 45px;
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dropdown-side-menu.active img {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.dropdown-side-menu li:nth-child(1) img { transition-delay: 0.1s; }
+.dropdown-side-menu li:nth-child(2) img { transition-delay: 0.2s; }
+.dropdown-side-menu li:nth-child(3) img { transition-delay: 0.3s; }
+
+.dropdown-side-menu img:hover {
+    transform: scale(1.15) !important;
+    filter: brightness(1.2);
+}
+
+/* =========================================
+   3. SECCIÓN HERO (FONDO)
+   ========================================= */
+.hero-full {
+    width: 100%;
+    height: 70vh;
+    background: url('assets/img1.jpg') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+/* =========================================
+   4. CARRUSEL INFINITO (REDISEÑADO & CORREGIDO)
+   ========================================= */
+.carousel-section {
+    position: relative;
+    width: 100%;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 0 5%;
+}
+
+.carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cabecera de Sección (Pestaña + Línea) */
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.header-tab {
+    background-color: #0f3a46;
+    color: #f9f8db;
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 35px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.header-tab .mini-icon {
+    width: 35px;
+    margin-right: 15px;
+}
+
+.header-tab h2 {
+    font-family: 'MyriadPro', sans-serif;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+.header-tab h2 strong {
+    font-family: 'MyriadPro-Bold', sans-serif;
+}
+
+/* Línea decorativa que conecta el título */
+.header-line {
+    flex-grow: 1;
+    height: 4px;
+    background-color: #0f3a46;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 0px;
+    opacity: 0.3;
+}
+
+/* Contenedor del Riel */
+.slider-track-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.slider-track {
+    display: flex;
+    gap: 30px; /* Gap definido */
+    
+    /* CORRECCIÓN DE ANCHO:
+       (280px ancho tarjeta + 30px gap) * 10 tarjetas = 3100px
+    */
+    width: 3100px;
+    
+    animation: scroll 40s linear infinite;
+}
+
+.carousel-section:hover .slider-track {
+    animation-play-state: paused;
+}
+
+/* ANIMACIÓN CORREGIDA:
+   Se mueve 5 tarjetas (1550px) para el loop perfecto
+*/
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-1550px); }
+}
+
+/* Nueva Tarjeta Estilizada */
+.card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    width: 280px; /* Ancho fijo */
+    flex-shrink: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(15, 58, 70, 0.1);
+    border: 1px solid rgba(15, 58, 70, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.card-img {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card-content {
+    padding: 20px;
+    background-color: #0f3a46;
+    text-align: center;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-content p {
+    color: #f9f8db;
+    font-family: 'MyriadPro-Bold', sans-serif;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+/* Hover Effects */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(15, 58, 70, 0.2);
+    border-color: #407778;
+}
+
+.card:hover .card-img img {
+    transform: scale(1.1);
+}
+
+.card:hover .card-content {
+    background-color: #407778;
+}
+
+/* =========================================
+   5. SECCIONES INFORMATIVAS
+   ========================================= */
+.info-section {
+    padding: 100px 10%;
+    width: 100%;
+    background-color: #f9f8db;
+}
+
+.info-section.bg-white {
+    background-color: #ffffff;
+}
+
+.info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-container.reverse-layout {
+    flex-direction: row-reverse;
+}
+
+.info-text { flex: 1; }
+
+.section-tag {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #407778;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.info-text h2 {
+    font-family: 'MyriadPro', sans-serif;
+    font-size: 3rem;
+    color: #0f3a46;
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.info-text h2 strong { font-weight: bold; }
+
+.divider-line {
+    width: 60px;
+    height: 4px;
+    background-color: #407778;
+    margin-bottom: 25px;
+    border-radius: 2px;
+}
+
+.info-text p {
+    font-family: 'MyriadPro', sans-serif;
+    font-size: 1.1rem;
+    color: #5a6e75;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 35px;
+    background-color: #0f3a46;
+    color: #f9f8db;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(15, 58, 70, 0.2);
+}
+
+.cta-button:hover {
+    background-color: #407778;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(15, 58, 70, 0.3);
+}
+
+.cta-button.outline {
+    background-color: transparent;
+    border: 2px solid #0f3a46;
+    color: #0f3a46;
+    box-shadow: none;
+}
+
+.cta-button.outline:hover {
+    background-color: #0f3a46;
+    color: #f9f8db;
+}
+
+.info-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.info-image img {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 40px;
+    border: 3px solid #0f3a46;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.bg-white .info-image img {
+    box-shadow: 20px 20px 0px #0f3a46;
+}
+
+.info-section:not(.bg-white) .info-image img {
+    box-shadow: 20px 20px 0px #407778;
+}
+
+.info-image img:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 25px 25px 0px rgba(15, 58, 70, 0.8);
+}
+
+/* =========================================
+   6. SECCIÓN DE CONTACTO
+   ========================================= */
+.contact-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 600px;
+    background-color: #f9f8db;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.contact-image-wrapper {
+    width: 60%;
+    height: 600px;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Redondeo solo lado derecho */
+    border-radius: 0 60px 60px 0;
+}
+
+.contact-form-wrapper {
+    width: 50%;
+    background-color: #0f3a46;
+    padding: 60px;
+    border-top-left-radius: 60px;
+    border-bottom-left-radius: 60px;
+    color: #ffffff;
+    z-index: 2;
+    margin-left: -10%; /* Superposición */
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+}
+
+.contact-form-wrapper h2 {
+    font-family: 'AdobeMingStd', serif;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: normal;
+    color: #f9f8db;
+}
+
+.sabveres-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-family: 'MyriadPro', sans-serif;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.form-group input {
+    background-color: #f9f8db;
+    border: none;
+    height: 45px;
+    border-radius: 10px;
+    padding: 0 15px;
+    font-family: 'MyriadPro', sans-serif;
+    font-size: 1rem;
+    color: #0f3a46;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    box-shadow: 0 0 0 2px #407778;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.half-width { flex: 1; }
+
+.submit-btn {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #407778;
+    color: #f9f8db;
+    border: none;
+    border-radius: 10px;
+    font-family: 'MyriadPro-Bold', sans-serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #f9f8db;
+    color: #0f3a46;
+}
+
+.submit-btn:disabled {
+    background-color: #5a6e75;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.main-footer {
+    background-color: #0f3a46;
+    color: #f9f8db;
+    padding: 50px 0 30px 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-top: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.footer-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-main-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(249, 248, 219, 0.1);
+    transition: all 0.3s ease;
+}
+
+.footer-socials svg {
+    width: 24px;
+    height: 24px;
+    fill: #f9f8db;
+    transition: transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+    background-color: #407778;
+    transform: translateY(-3px);
+}
+
+.footer-socials a:hover svg {
+    transform: scale(1.1);
+}
+
+/* Botón Scroll Top en Footer */
+.scroll-top-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.scroll-top-btn img {
+    width: 50px;
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.scroll-top-btn:hover {
+    transform: translateY(-10px);
+}
+
+.scroll-top-btn:hover img {
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+}
+
+.footer-copyright p {
+    font-family: 'MyriadPro', sans-serif;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-align: center;
+}
+
+/* =========================================
+   8. BOTÓN FLOTANTE WHATSAPP (GLOBAL)
+   ========================================= */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: #0f3a46;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    border: 2px solid #ffffff;
+}
+
+.whatsapp-float svg {
+    width: 38px;
+    height: 38px;
+    fill: #ffffff; /* Icono blanco */
+    stroke: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) translateY(-5px);
+    background-color: #407778;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* =========================================
+   9. RESPONSIVIDAD GENERAL
+   ========================================= */
+@media (max-width: 900px) {
+    /* Navbar */
+    .navbar-container { width: 100%; }
+    .navbar-accent-square { display: none; }
+    
+    /* Info Sections */
+    .info-container, .info-container.reverse-layout {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .info-text h2 { font-size: 2rem; }
+    
+    /* Contact Form */
+    .contact-section {
+        flex-direction: column;
+        height: auto;
+    }
+    .contact-image-wrapper {
+        width: 100%;
+        height: 300px;
+    }
+    .contact-image-wrapper img {
+        border-radius: 0 0 0 0; /* Sin curva lateral en móvil */
+    }
+    .contact-form-wrapper {
+        width: 100%;
+        margin-left: 0;
+        margin-top: -50px;
+        border-radius: 40px 40px 0 0;
+        padding: 40px 20px;
+    }
+    .form-row { flex-direction: column; }
+    
+    /* Footer */
+    .main-footer { border-radius: 30px 30px 0 0; }
+    
+    /* WhatsApp */
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+}
