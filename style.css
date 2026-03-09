@@ -475,7 +475,7 @@ body {
     color: #f9f8db;
 }
 
-.sabveres-form {
+.savberes-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -721,7 +721,7 @@ body {
 }
 
 /* =========================================
-   10. PÁGINA SOBRE SABVERES (FILOSOFÍA)
+   10. PÁGINA SOBRE SAvBERES (FILOSOFÍA)
    ========================================= */
 .philosophy-grid {
     display: flex;
@@ -747,7 +747,6 @@ body {
 
 .philosophy-card:hover {
     transform: translate(-5px, -5px);
-    /* Sombra sólida estilo Sabveres (igual a las imágenes) */
     box-shadow: 15px 15px 0px #407778; 
 }
 
