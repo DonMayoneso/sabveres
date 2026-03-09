@@ -24,14 +24,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // 2. BOTÓN "VOLVER ARRIBA" (SCROLL TO TOP)
     // =========================================
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const scrollTopBtn = document.getElementById('scrollTopBtn'); // Botón del footer
+    const floatingScrollBtn = document.getElementById('floatingScrollTopBtn'); // Botón flotante nuevo
 
+    // Función que hace el scroll suave hacia arriba
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Desplazamiento suave y elegante
+        });
+    };
+
+    // Asignar clic al botón del footer
     if (scrollTopBtn) {
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // Desplazamiento suave y elegante
-            });
+        scrollTopBtn.addEventListener('click', scrollToTop);
+    }
+
+    // Asignar clic y lógica de aparición al botón flotante
+    if (floatingScrollBtn) {
+        floatingScrollBtn.addEventListener('click', scrollToTop);
+        
+        // Mostrar u ocultar el botón flotante dependiendo de cuánto baje el usuario
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Si baja más de 300px, aparece
+                floatingScrollBtn.classList.add('visible');
+            } else { // Si está arriba, se oculta
+                floatingScrollBtn.classList.remove('visible');
+            }
         });
     }
 
@@ -82,6 +101,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Restaurar botón a su estado original
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
+            }
+        });
+    }
+});
+
+// =========================================
+// 4. LÓGICA DEL MODAL VISOR DE PDF
+// =========================================
+
+// Estas funciones DEBEN estar fuera del DOMContentLoaded para que el HTML las reconozca
+function openPdfModal(pdfUrl, title) {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfViewer');
+    const downloadBtn = document.getElementById('downloadPdfBtn');
+    const modalTitle = document.getElementById('modalTitle');
+
+    if (modal && iframe && downloadBtn) {
+        // Asignar el título
+        modalTitle.textContent = title;
+        // Asignar la ruta al iframe para visualizar
+        iframe.src = pdfUrl;
+        // Asignar la ruta al botón de descarga
+        downloadBtn.href = pdfUrl;
+        
+        // Mostrar el modal
+        modal.classList.add('active');
+        // Prevenir el scroll de la página de fondo
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closePdfModal() {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfViewer');
+
+    if (modal) {
+        // Ocultar el modal
+        modal.classList.remove('active');
+        // Restaurar el scroll de la página
+        document.body.style.overflow = 'auto';
+        
+        // Limpiar el iframe después de la animación para no consumir memoria
+        setTimeout(() => {
+            if(iframe) iframe.src = "";
+        }, 300);
+    }
+}
+
+// Este evento cierra el modal si el usuario hace clic en el fondo oscuro (fuera del cuadro blanco)
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('pdfModal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closePdfModal();
             }
         });
     }
